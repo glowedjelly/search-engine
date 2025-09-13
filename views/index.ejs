@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search Engine</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input { width: 100%; padding: 10px; font-size: 16px; margin-bottom: 20px; }
+    ul { list-style: none; padding: 0; }
+    li { padding: 8px; border-bottom: 1px solid #ccc; }
+    a { text-decoration: none; color: #0077cc; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>Search Engine</h1>
+  <form method="GET" action="/">
+    <input type="text" name="q" placeholder="Type to search..." value="<%= query %>" />
+  </form>
+  <ul>
+    <% results.forEach(item => { %>
+      <li>
+        <a href="<%= item.url %>" target="_blank">
+          <strong><%= item.name %></strong>
+        </a>: <%= item.description %>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

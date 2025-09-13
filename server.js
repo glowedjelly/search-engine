@@ -2,32 +2,28 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Fuse = require('fuse.js');
 const Item = require('./models/Item');
-const path = require('path');
+require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost:27017/searchDB', {
+app.set('view engine', 'ejs');
+
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch(err => {
+  console.error('MongoDB connection error:', err);
 });
 
-app.use(express.static('public'));
-
-app.get('/autocomplete', async (req, res) => {
-  const query = req.query.q?.toLowerCase() || '';
-  const items = await Item.find({});
-  const fuse = new Fuse(items, { keys: ['name', 'description'], threshold: 0.3 });
-  const results = fuse.search(query).map(r => r.item.name);
-  res.json(results.slice(0, 5));
-});
-
-app.get('/search', async (req, res) => {
+app.get('/', async (req, res) => {
   const query = req.query.q?.toLowerCase() || '';
   const items = await Item.find({});
   const fuse = new Fuse(items, { keys: ['name', 'description'], threshold: 0.4 });
-  const results = fuse.search(query).map(r => r.item);
-  res.json(results);
+  const results = query ? fuse.search(query).map(r => r.item) : [];
+  res.render('index', { results, query });
 });
 
 app.listen(PORT, () => {
