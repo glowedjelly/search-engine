@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "crawl": "node crawler.js"
+    "crawl": "node crawler.js",
+    "test": "node crawler.js"
   },
   "dependencies": {
     "axios": "^1.6.0",
@@ -12,11 +13,8 @@
     "dotenv": "^17.2.2",
     "ejs": "^3.1.9",
     "express": "^5.1.0",
-    "express": "^4.18.2",
-    "fuse.js": "^6.6.2",
     "mongoose": "^8.18.1"
     "fuse.js": "^7.1.0",
-    "mongoose": "^7.5.0",
     "express-rate-limit": "^8.1.0"
   }
 }
