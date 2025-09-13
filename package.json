@@ -16,6 +16,7 @@
     "fuse.js": "^6.6.2",
     "mongoose": "^8.18.1"
     "fuse.js": "^7.1.0",
-    "mongoose": "^7.5.0"
+    "mongoose": "^7.5.0",
+    "express-rate-limit": "^8.1.0"
   }
 }
